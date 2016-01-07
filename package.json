@@ -1,10 +1,10 @@
 {
-  "name": "af-seed",
+  "name": "af-auth",
   "version": "0.0.1",
-  "description": "Actifi seed project",
+  "description": "Actifi Auth project",
   "repository": {
     "type": "git",
-    "url": "git@github.com:ActiFi/af-seed.git"
+    "url": "git@github.com:ActiFi/af-auth.git"
   },
   "scripts": {
     "start": "node app.js",
