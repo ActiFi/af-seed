@@ -1,0 +1,53 @@
+@loadBarMarginTop:150px;
+#loader,
+#sketchLoader{
+  background-color: #EEEEEE;
+  z-index: 30000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.7;
+
+  .loaderText,
+  .loaderBar,{
+    position:fixed;
+    z-index: 30001;
+    width:100%;
+    margin:0 auto;
+  }
+  .loaderBar{
+    top:20px;
+    min-height:20px;
+    background-color: transparent;
+    background-image: url("../../../img/jquery.loader.progressBar.gif");
+    background-position: center bottom;
+    background-repeat: no-repeat;
+  }
+  .loaderText{
+    text-align: center;
+    top:40px;
+    font-weight:bold;
+  }
+}
+#sketchLoader{
+  position:absolute;
+  background-color: #FFF;
+  .loaderText,
+  .loaderBar,{
+    position:absolute;
+  }
+  .loaderBar{
+    top: @loadBarMarginTop;
+  }
+  .loaderText{
+    top: @loadBarMarginTop + 20px;
+  }
+}
+
+#jquery-loader.default div {
+  bottom: 20px;
+  position: absolute;
+  width: 100%;
+}

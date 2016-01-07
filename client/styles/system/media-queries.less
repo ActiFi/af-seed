@@ -1,0 +1,32 @@
+// NOTE :  requires bootstrap or you need to defined these variables
+// bootstrap defaults:
+// @screen-xs : 480px
+// @screen-xs-max : 767px
+// @screen-sm : 768px
+// @screen-sm-max : 991px
+// @screen-md : 992px
+// @screen-md-max : 1199px
+// @screen-lg : 1200px
+
+/*
+// USAGE
+@media (@media-phone) {
+  ... phone only
+}
+
+@media (@media-mobile){
+  ... blah blah
+}
+
+@media (@media-tablet-min) and (@media-tablet-max){
+  ... tablet only
+}
+*/
+
+@maxMobile:1024px;
+@media-desktop  : ~'min-width: @{screen-md}';      // desktop (md or larger) (md, lg)
+@media-mobile   : ~'max-width: @{screen-sm-max}'; //@{screen-sm-max}';  // mobile (sm or lower) (sm, xs)
+@media-phone    : ~'max-width: @{screen-xs-max}';  // phone (xs)
+
+@media-tablet-min   : ~'min-width: @{screen-sm}';     // tablet (sm)
+@media-tablet-max   : ~'max-width: @{screen-sm-max}'; // tablet (sm)

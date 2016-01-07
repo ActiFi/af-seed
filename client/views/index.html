@@ -1,0 +1,22 @@
+{% extends "partials/layouts/layout-app.html" %}
+
+{% block htmlTag %}ng-app="myApp"{% endblock %}
+
+{% block title %}
+  {$ super() $}
+{% endblock %}
+
+{% block app %}
+  <!-- HEADING -->
+  <div id="author">
+    <div class="author">by {$ config.author $}</div>
+  </div>
+  <!-- APP -->
+  <div ui-view></div>
+{% endblock %}
+
+{% block js %}
+  {$ super() $}
+  <script src="js/libs.js"></script>
+  <script src="js/app.js"></script>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'partials/layouts/layout-master.html' %}
+
+{% block title %}BOOM!{% endblock %}
+
+{% block body %}
+  <div class="alert alert-danger">
+    Whoops! An error has occurred.
+    <div>{$ ctx.message $} {$ ctx.code $}</div>
+  </div>
+{% endblock %}

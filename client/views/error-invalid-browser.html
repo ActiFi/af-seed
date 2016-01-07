@@ -1,0 +1,23 @@
+{% extends "partials/layouts/layout-master.html" %}
+
+{% block title %}Invalid Browser{% endblock %}
+
+{% block body %}
+  <div style="margin:20px auto; width:450px;">
+    <div style="padding:20px; background-color:#FFF;">
+      <img style="float:left" src="../img/error-sign.jpg" />
+      <div style="margin-left:120px;">
+        <strong>Whoops, you are using an older browser which is not supported by this site.</strong>
+        <hr />
+        <p>This site requires at least Internet Explorer {$ ctx.config.minIE $} or newer. Please update to a more modern browser such as Internet Explorer {$ config.minIE $},
+          <a href="http://www.mozilla.org" target="_blank">Firefox</a>,
+          <a href="https://www.google.com/chrome" target="_blank">Google Chrome</a> or
+          <a href="http://www.apple.com/safari/" target="_blank">Safari</a> and <a href="/">try again</a>.
+        </p>
+        {% if config.support.email %}
+          <p>If you continue to experience issues, please contact support at <a href="mailto:{$ config.support.email $}">{$ config.support.email $}</a>.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

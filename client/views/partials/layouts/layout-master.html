@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" {% block htmlTag %}{% endblock %}>
+<head>
+  {% block head %}
+
+  <title>{% block title %}{% endblock %}</title>
+
+  <!--<base href="/">-->
+
+  <meta charset="UTF-8">
+  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  <!-- english character set -->
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!-- ipad and device junk -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- css & media -->
+  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
+  <link rel="stylesheet" type="text/css" href="css/app-init.css" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+  <!-- OLD BROWSER -->
+  <!--[if IE 9]><script type="text/javascript">window.ie = 9;</script><![endif]-->
+
+  {% endblock %}
+</head>
+
+<body {% block bodyTag %}{% endblock %}>
+
+  {% block body %}
+    <!-- this displays before angular has run -->
+    <!-- APP LOADER .ng-cloak is stripped off once angular is loaded.. and this gets hidden -->
+    <div id="applicationLoader" style="text-align:center" class="ng-cloak ng-cloak-reverse">
+      <div style="margin:40px auto; max-width:400px;">
+        <div class="progress progress-striped square active" style="margin:0; height:10px;">
+          <div style="width:100%" class="progress-bar"></div>
+        </div>
+        <div class="well well-lg square">
+          <h4>Loading Application...</h4>
+        </div>
+      </div>
+    </div>
+  {% endblock %}
+
+  <!-- scripts -->
+  {% block js %}
+    <script src="js/config.js"></script>
+  {% endblock %}
+
+  <!-- testing -->
+  {% if config.env == 'development' %}
+    <div class="ng-cloak" style="margin:200px 20px 20px;">
+      <h5>dev:</h5>
+      <hr />
+      <div>view: ctx:</div>
+      <pre>ctx:{$ ctx | json $}</pre>
+      <div>config:</div>
+      <pre>config:{$ config | json $}</pre>
+    </div>
+  {% endif %}
+
+</body>
+</html>

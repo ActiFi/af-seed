@@ -1,0 +1,31 @@
+{
+  "name": "SketchComic",
+  "version": "0.0.1",
+  "authors": [
+    "Nate Alberg <alberg.nate@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "mock"
+  ],
+  "dependencies": {
+    "jquery":"*",
+    "amplify": "1.1.2",
+    "angular": "1.4.8",
+    "angular-sanitize": "1.4.8",
+    "angular-animate": "1.4.8",
+    "angular-messages": "1.4.8",
+    "angular-ui-router": "0.2.15",
+    "bootstrap": "3.3.6",
+    "lodash": "3.10.1",
+    "moment": "2.10.6"
+  },
+  "resolutions": {
+    "angular": "1.4.8"
+  }
+}

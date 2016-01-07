@@ -1,0 +1,140 @@
+@import '../bootstrap-2.1.0/mixins.less';
+@import '../bootstrap-2.1.0/variables.less';
+@import 'bootstrap-theme.less';
+
+body{
+  @media (max-width: 767px) {
+    padding:0;
+  }
+}
+
+// padding mixin
+.applicationPadding(){
+  margin: 15px;
+  @media (max-width: 767px) {
+    margin:8px;
+  }
+}
+.appPadding{
+  .applicationPadding();
+}
+
+
+#app{
+  overflow:hidden;
+  background-color: green;
+  background:url(../img/bg.jpg) top left no-repeat;
+  .box-shadow(0 2px 5px rgba(0,0,0,0.25));
+  &.alertPush{
+    margin-top:55px;
+  }
+  .footerDiv{
+    margin-top:20px;
+    min-height:200px;
+    background-color:#EEE;
+    text-align:center;
+    .signature{
+      padding-top:40px;
+    }
+    .createdBy{
+      padding:20px 0;
+      color:#666;
+      font-size:10px;
+    }
+  }
+}
+
+#pageTitle{
+  text-align:right;
+  margin:0 15px 20px 15px;
+  h3{
+    float:right;
+    max-width:400px;
+  }
+  @media (max-width: 767px) {
+    margin:70px 15px 5px 15px;
+    text-align:left;
+    h3{
+      float:none;
+      max-width:none;
+    }
+  }
+}
+
+
+
+// UTIL
+.posAbs{ position:absolute; }
+.posRel{ position:relative; }
+.left{float:left;}
+.right{float:right;}
+
+// FONTS
+.sketchFont{
+  font-family: 'Gloria Hallelujah', cursive;
+}
+.sketchFontBody{
+  font-family: 'Neucha', cursive; // <-- pretty good
+  line-height:25px;
+  font-size:18px;
+  color:#333;
+}
+.infoPopup{
+  position:relative;
+  color:@linkColor;
+  display:inline-block;
+  text-decoration:underline;
+  cursor:pointer;
+}
+.popover{
+  //pointer-events:none;
+  .popover-title{
+    .sketchFont();
+    font-weight:bold;
+    font-family: 'Gloria Hallelujah', cursive;
+  }
+  .popover-content{
+    .sketchFontBody();
+    margin:-1px;
+    background:url(../img/inventory_bg.jpg) top left repeat-x;
+    .clearfix();
+  }
+  img{
+    border:1px solid #EEE;
+    margin:0 10px 0 -10px;
+  }
+  @media (max-width: 767px) {
+    max-width:180px;
+  }
+}
+
+
+
+.btn.btn-link{
+  &.disabled,
+  &[disabled]{
+    opacity:.4;
+    background-color:transparent;
+  }
+}
+
+
+// ICONS
+.icon-sketchy{
+  background-image: url("../img/sketchicons.png");
+  vertical-align:inherit;
+}
+.icon-prev   { background-position: 0      0; }
+.icon-next   { background-position: -24px  0; }
+.icon-gold   { background-position: 0      -24px; }
+.icon-silver { background-position: -24px  -24px; }
+.icon-copper { background-position: -48px  -24px; }
+
+
+
+// import some fun stuff pages
+@import 'parts/fancyInputs.less';
+@import 'parts/scrolly.less';
+@import 'parts/jquery.loader.less';
+@import 'parts/alerts.less';
+@import 'parts/storyPage.less';

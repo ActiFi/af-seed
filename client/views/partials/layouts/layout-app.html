@@ -1,0 +1,78 @@
+{% extends "partials/layouts/layout-master.html" %}
+
+{% block title %}
+  {$ super() $}
+  {$ config.site_name $}
+{% endblock %}
+
+{% block head %}
+  {$ super() $}
+
+  <!--[if lt IE 9]><script type="text/javascript">window.location.href = 'invalid-browser.html';</script><![endif]-->
+
+  <!-- css & media -->
+  <link rel="stylesheet" type="text/css" href="css/app.css" />
+  <link href='https://fonts.googleapis.com/css?family=Neucha|Gloria+Hallelujah|Boogaloo|Almendra' rel='stylesheet' type='text/css'>
+  <!--<link href='https://fonts.googleapis.com/css?family=Boogaloo|Almendra' rel='stylesheet' type='text/css'>-->
+
+
+  <!-- FACEBOOK :
+    You can use open graph tags to customize link previews.
+    Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
+  <meta property="og:url"           content="http://www.sketchcomic.com/your-page.html" />
+  <meta property="og:type"          content="website" />
+  <meta property="og:title"         content="SketchComic" />
+  <meta property="og:description"   content="Ongoing story built by sketches by Nathan Alberg. Updated daily." />
+  <meta property="og:image"         content="http://www.sketchcomic.com/img/fb_og.jpg" />
+
+{% endblock %}
+
+{% block bodyTag %}
+  ng-controller="AppCtrl as AppCtrl"
+{% endblock %}
+
+
+{% block body %}
+
+  <!-- Load Facebook SDK for JavaScript -->
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=351730244953276";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+  {$ super() $}
+
+  <!-- the app -->
+  <div id="app" class="container ng-cloak">
+
+    {% block app %}{% endblock %}
+
+    <div class="row" id="footer">
+      <div class="signature"></div>
+      <!--<form ng-show="showLogin" ng-submit="doLogin()" style="margin:0; padding:50px 0;">-->
+        <!--<input type="text" ng-model="username" placeholder="username" />-->
+        <!--<input type="password" ng-model="password" placeholder="password" />-->
+        <!--<input type="submit" id="submit" value="Submit" class="hide" />-->
+      <!--</form>-->
+      <div class="createdBy">copyright &copy; {$ config.author $} <span class="text-muted"> | </span> www.natealberg.com <span class="text-muted"> | </span> <a href="javascript:;">admin</a>
+        <!--<?php-->
+        <!--if(!loggedIn()){-->
+        <!--echo '<a href="javascript:;" ng-click="showLogin = !showLogin">admin</a>';-->
+        <!--} else {-->
+        <!--echo '<a href="admin.php">story</a> | <a href="javascript:;" ng-click="logout()">logout</a>';-->
+        <!--}-->
+        <!--?>-->
+      </div>
+    </div>
+  </div>
+
+  <div modal-holder></div>
+  <div loader-holder></div>
+  <div msg-holder></div>
+
+{% endblock %}
+
