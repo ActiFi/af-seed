@@ -27,13 +27,13 @@ var middleware = {
     req.tenantConfig = {};
 
     var headers = req.headers;
-    var subDomain = null;
-    if(_.has(headers, 'x-forwarded-host')) subDomain = headers['x-forwarded-host'];
+    var hostname = null;
+    if(_.has(headers, 'x-forwarded-host')) hostname = headers['x-forwarded-host'];
 
-    if(!subDomain)
-      return next('no x-forwarded-host found. Cannout attach tenantConfig');
+    if(!hostname)
+      return next('no x-forwarded-host found. Cannot attach tenantConfig');
 
-    tenantConfig.get(subDomain)
+    tenantConfig.get(hostname)
       .then(function(tenantConfig){
         req.tenantConfig = tenantConfig;
         next();
