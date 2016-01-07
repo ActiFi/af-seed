@@ -1,8 +1,10 @@
 var _ = require('lodash');
-var config = require('config');
 var api = require('api');
+var config = require('config');
 var jwt = require('jsonwebtoken');
-var db = require('db');
+
+var tenantConfig = require('tenantConfig');
+var bomb = require('bomb');
 
 
 var middleware = {
@@ -13,35 +15,52 @@ var middleware = {
       if(err) return next(err);
       res.json({status:'success', data:data});
     };
+    // add 4 helper functions
     res.success = function(data){ callback(null, data); };
     res.error = function(err){ callback(err); };
     res.callback = callback;
     next();
   },
 
-  // attach db to a route
-  db:function(req, res, next){
-    req.db = db;
-    next();
-  },
+  // attach tenantConfig to req
+  tenantConfig:function(req, res, next){
+    req.tenantConfig = {};
 
-  // if a token was passed in header, etc...
-  // decode it and attach to req as user
-  jwt:function(req, res, next){
-    if(!req.token) {
-      req.user = null;
+    var headers = req.headers;
+    var subDomain = null;
+    if(_.has(headers, 'x-forwarded-host')) subDomain = headers['x-forwarded-host'];
+    if(!subDomain){
+      console.log('no x-forwarded-host found. Cannout attach tenantConfig');
       next();
-    } else {
-      jwt.verify(req.token, config.server.JWT_SECRET, function(err, decoded) {
-        if(err){
-          next(err)
-        } else {
-          req.user = decoded;
-          next();
-        }
-      })
     }
+
+    tenantConfig.get(subDomain)
+      .then(function(tenantConfig){
+        req.tenantConfig = tenantConfig;
+        next();
+      })
+      .catch(function(error){
+        next(bomb.boom(error))
+      });
   }
+
+  //// if a token was passed in header, etc...
+  //// decode it and attach to req as user
+  //jwt:function(req, res, next){
+  //  if(!req.token) {
+  //    req.user = null;
+  //    next();
+  //  } else {
+  //    jwt.verify(req.token, config.server.JWT_SECRET, function(err, decoded) {
+  //      if(err){
+  //        next(err)
+  //      } else {
+  //        req.user = decoded;
+  //        next();
+  //      }
+  //    })
+  //  }
+  //}
 
 };
 

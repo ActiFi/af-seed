@@ -51,9 +51,12 @@ router.get('/js/config.js', function(req, res){
 // LIBS
 //
 router.get('/js/libs.js', function(req, res){
+  console.log('FILEPATH', filePath);
+
   var filePath = config.dirs.static + '/js/libs.min.js';
   // send non-minified version if development
-  if(process.env.NODE_ENV === 'development') filePath = config.dirs.static + '/js/libs.js';
+  if(process.env.NODE_ENV === 'development')
+    filePath = config.dirs.static + '/js/libs.js';
   routeUtil.sendFile(filePath, req, res);
 });
 

@@ -1,8 +1,9 @@
 {
-  "name": "SketchComic",
-  "version": "0.0.1",
+  "name": "Auth",
+  "version": "0.0.0",
   "authors": [
-    "Nate Alberg <alberg.nate@gmail.com>"
+    "Nate Alberg <nalberg@actifi.com>",
+    "Adam Gregory <agregory@actifi.com>"
   ],
   "license": "MIT",
   "ignore": [
@@ -14,7 +15,7 @@
     "mock"
   ],
   "dependencies": {
-    "jquery":"*",
+    "jquery":"2.1.4",
     "amplify": "1.1.2",
     "angular": "1.4.8",
     "angular-sanitize": "1.4.8",

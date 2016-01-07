@@ -45,20 +45,9 @@
 
   <!-- scripts -->
   {% block js %}
-    <script src="js/config.js"></script>
+    <script src="js/config.js" type="text/javascript"></script>
+    <script src="/tenant/tenantContent-js.php" type="text/javascript"></script>
   {% endblock %}
-
-  <!-- testing -->
-  {% if config.env == 'development' %}
-    <div class="ng-cloak" style="margin:200px 20px 20px;">
-      <h5>dev:</h5>
-      <hr />
-      <div>view: ctx:</div>
-      <pre>ctx:{$ ctx | json $}</pre>
-      <div>config:</div>
-      <pre>config:{$ config | json $}</pre>
-    </div>
-  {% endif %}
 
 </body>
 </html>

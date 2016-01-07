@@ -1,21 +1,16 @@
-
 var _ = require('lodash');
 var path = require('path');
 
 
 var environments = {
   development: {
-    DATABASE_URL: 'postgres://user:password@localhost:5432/database',
-    JWT_SECRET:'MEOW',
-    PASSWORD_SALT:'MEOWPANTS'
+    // whatever config
   },
   testing:{
-    DATABASE_URL: 'postgres://user:password@localhost:5432/database',
-    JWT_SECRET:'MEOW',
-    PASSWORD_SALT:'MEOWPANTS'
+    // whatever config
   },
   production:{
-    // these should mimic the other env variables but are passed in via process.env
+    // whatever config
   }
 };
 
@@ -39,7 +34,7 @@ var config = {
   server: _.extend({}, environments[process.env.NODE_ENV], process.env),
   // exposed to public
   public:{
-    site_name:'ActiFi',
+    site_name:'ActiFi Auth',
     env:process.env.NODE_ENV,
     support:{
       email:'support@actifi.com'
