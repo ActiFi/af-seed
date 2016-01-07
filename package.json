@@ -1,10 +1,10 @@
 {
-  "name": "sketchcomic",
+  "name": "af-seed",
   "version": "0.0.1",
-  "description": "Daily Sketch",
+  "description": "Actifi seed project",
   "repository": {
     "type": "git",
-    "url": "git@github.com:nawlbergs/sketchcomic.git"
+    "url": "git@github.com:ActiFi/af-seed.git"
   },
   "scripts": {
     "start": "node app.js",
