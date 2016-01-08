@@ -30,34 +30,34 @@ module.exports = function(app){
 
 
   // ENSURE ERROR
-  //app.use(function(err, req, res, next) {
-  //  throw new Error(err);
-  //  if(_.isError(err)) {
-  //    next(err);
-  //    return;
-  //  }
-  //
-  //  var error = err;
-  //  if(_.isString(err))
-  //    error = bomb.boom(err, 500, 'Server Error');
-  //
-  //  // create error from validator error...
-  //  if (err instanceof validator.ValidationError) {
-  //    var message = 'Validation Error';
-  //    if(err.errors.length && err.errors[0].messages.length)
-  //      message += ': ' + err.errors[0]['messages'][0];
-  //    error = bomb.boom(message, 400, 'Bad Request', err.errors);
-  //  }
-  //
-  //  // convert object to error
-  //  //if(_.isPlainObject(err))
-  //    error = bomb.boom(err.message, err.code, err.name, err.data, err.debug);
-  //
-  //  // convert to an error
-  //  if(error instanceof bomb.theBomb)
-  //    error = error.toError();
-  //  next(error);
-  //});
+  app.use(function(err, req, res, next) {
+    throw new Error(err);
+    if(_.isError(err)) {
+      next(err);
+      return;
+    }
+
+    var error = err;
+    if(_.isString(err))
+      error = bomb.boom(err, 500, 'Server Error');
+
+    // create error from validator error...
+    if (err instanceof validator.ValidationError) {
+      var message = 'Validation Error';
+      if(err.errors.length && err.errors[0].messages.length)
+        message += ': ' + err.errors[0]['messages'][0];
+      error = bomb.boom(message, 400, 'Bad Request', err.errors);
+    }
+
+    // convert object to error
+    //if(_.isPlainObject(err))
+      error = bomb.boom(err.message, err.code, err.name, err.data, err.debug);
+
+    // convert to an error
+    if(error instanceof bomb.theBomb)
+      error = error.toError();
+    next(error);
+  });
 
 
 
