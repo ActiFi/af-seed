@@ -31,18 +31,20 @@ var middleware = {
     if(_.has(headers, 'x-forwarded-host')) hostname = headers['x-forwarded-host'];
 
     if(!hostname)
-      return next('no x-forwarded-host found. Cannot attach tenantConfig');
+      throw new Error('no x-forwarded-host found. Cannot attach tenantConfig', headers);
+      //return next('no x-forwarded-host found. Cannot attach tenantConfig');
 
-    tenantConfig.get(hostname)
-      .then(function(tenantConfig){
-        req.tenantConfig = tenantConfig;
-        next();
-      })
-      .catch(function(error){
-        console.log(error);
-        next(error);
-        //next(bomb.boom('failed to get tenantConfig'))
-      });
+    next();
+    //tenantConfig.get(hostname)
+    //  .then(function(tenantConfig){
+    //    req.tenantConfig = tenantConfig;
+    //    next();
+    //  })
+    //  .catch(function(error){
+    //    console.log('tenantConfig.get().catch():', error);
+    //    next(error);
+    //    //next(bomb.boom('failed to get tenantConfig'))
+    //  });
   }
 
   //// if a token was passed in header, etc...
