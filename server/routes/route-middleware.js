@@ -39,7 +39,9 @@ var middleware = {
         next();
       })
       .catch(function(error){
-        next(bomb.boom(error))
+        console.log(error);
+        next(error);
+        //next(bomb.boom('failed to get tenantConfig'))
       });
   }
 
