@@ -4,7 +4,32 @@ var routeUtil = require('routeUtil');
 var bomb = require('bomb');
 var validator = require('express-validation');
 
-module.exports = function(app){
+var dumpError = function(err) {
+  console.log('ERROR:');
+  console.log('====================');
+  if (typeof err === 'object') {
+    if (err.message)  console.log('Message: ' + err.message);
+    if(err.data)      console.log('Data:', err.data);
+    if(err.debug)     console.log('Debug:', err.debug);
+    if (err.stack) {
+      console.log('Stacktrace:');
+      console.log(err.stack);
+    }
+  } else {
+    console.log('dumpError :: err argument is not an object:', err);
+  }
+};
+
+
+// also catch uncaught
+process.on('uncaughtException', function(err){
+  dumpError(err);
+  process.exit();
+});
+
+
+// route catcher
+var catcher = function(app){
 
   // 404
   app.use(function(req, res, next){
@@ -31,56 +56,50 @@ module.exports = function(app){
 
   // ENSURE ERROR
   app.use(function(err, req, res, next) {
-    throw new Error(err);
-    if(_.isError(err)) {
+    if (_.isError(err)) {
       next(err);
       return;
     }
-
-    var error = err;
-    if(_.isString(err))
-      error = bomb.boom(err, 500, 'Server Error');
 
     // create error from validator error...
     if (err instanceof validator.ValidationError) {
       var message = 'Validation Error';
       if(err.errors.length && err.errors[0].messages.length)
         message += ': ' + err.errors[0]['messages'][0];
-      error = bomb.boom(message, 400, 'Bad Request', err.errors);
+      next(new bomb(message, 400, 'Bad Request', err.errors));
+      return;
     }
 
-    // convert object to error
-    //if(_.isPlainObject(err))
-      error = bomb.boom(err.message, err.code, err.name, err.data, err.debug);
+    // handle simple objects...
+    if (_.isString(err)) {
+      next(new bomb(err));
+      return;
+    }
+    if(_.isPlainObject(err)){
+      next(new bomb(err.message, err.code, err.name, err.data, err.debug));
+      return;
+    }
 
-    // convert to an error
-    if(error instanceof bomb.theBomb)
-      error = error.toError();
-    next(error);
+    next(err);
   });
 
 
 
   // HANDLE RESPONSE
   app.use(function(err, req, res, next) {
-
-    var code = err.code || 500;
-    var message = err.message || 'Whoops! An error has occurred.';
-    var name = err.name || 'Unknown Error';
-
     // LOG IT
-    if(process.env.NODE_ENV !== 'testing') {
-      console.log(err.stack);
-      console.log('ERROR @ ', req.path, message, code);
-    }
-
+    dumpError(err);
+    // SEND IT
     res.send({
       status:'error',
-      code:code,
-      name:name,
-      message:message,
-      data: err.data,
-      debug: _.extend({}, { url:req.path }, err.debug)
+      code:err.code || 500,
+      name:err.name || 'Unknown Server Error',
+      message:err.message || 'An unknown server error has occurred.',
+      data: err.data || {},
+      debug:_.extend({}, { url:req.path }, err.debug)
     });
   });
 };
+
+
+module.exports = catcher;
