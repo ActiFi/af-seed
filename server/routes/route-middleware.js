@@ -27,12 +27,15 @@ var middleware = {
     req.tenantConfig = {};
 
     var headers = req.headers;
+
+    console.log(headers);
+
     var hostname = null;
     if(_.has(headers, 'x-forwarded-host')) hostname = headers['x-forwarded-host'];
 
     if(!hostname)
-      throw new Error('no x-forwarded-host found. Cannot attach tenantConfig', headers);
-      //return next('no x-forwarded-host found. Cannot attach tenantConfig');
+      //throw new Error('no x-forwarded-host found. Cannot attach tenantConfig', headers);
+      return next(new Error('no x-forwarded-host found. Cannot attach tenantConfig'));
 
     tenantConfig.get(hostname)
       .then(function(tenantConfig){
@@ -41,8 +44,7 @@ var middleware = {
       })
       .catch(function(error){
         console.log('tenantConfig.get().catch():', error);
-        throw new Error(error);
-        next(error);
+        next(new Error('failed to get tenantConfig'));
         //next(bomb.boom('failed to get tenantConfig'))
       });
   }
