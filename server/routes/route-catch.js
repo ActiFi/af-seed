@@ -33,22 +33,23 @@ var catcher = function(app){
 
   // 404
   app.use(function(req, res, next){
+
     res.status(404);
-
-    // respond with json
-    if (req.accepts('json')) {
-      next({message:'Url does not exist.', code:404});
-      return;
-    }
-
     console.log('ERROR', 404, req.path);
 
     // respond with html page
     if (req.accepts('html')) {
-      req.ctx = { message:'We couldn\'t find that file.', code:404 };
+      req.ctx = { message:'Whoops! We couldn\'t find that file.', code:404 };
       routeUtil.renderView('error', req, res, 404);
       return;
     }
+
+    // respond with json
+    if (req.accepts('json')) {
+      next(new bomb('Url does not exist.', 404));
+      return;
+    }
+
     // default to plain-text. send()
     res.type('txt').send('Not found');
   });
@@ -56,6 +57,7 @@ var catcher = function(app){
 
   // ENSURE ERROR
   app.use(function(err, req, res, next) {
+    console.log('wtf')
     if (_.isError(err)) {
       next(err);
       return;

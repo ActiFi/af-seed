@@ -21,6 +21,8 @@ router.use(express.static(config.dirs.static));
 //
 router.get('/', routeUtil.defaultRenderer('index'));
 router.get('/index.html', routeUtil.redirectTo('/'));
+router.get('/index-embed.html', routeUtil.defaultRenderer('index-embed'));
+
 router.get('/error-invalid-browser.html', routeUtil.defaultRenderer('error-invalid-browser'));
 router.get('/error.html', function(req, res, next){
   req.ctx = routeUtil.getParams(req);
@@ -43,7 +45,7 @@ router.get('/views/*', function(req, res){
 // CONFIG
 //
 router.get('/js/config.js', function(req, res){
-  res.send('window.config = ' + JSON.stringify(config.public) + ';');
+  res.send('window.config = ' + JSON.stringify(_.extend({}, config.public, req.tenantConfig)) + ';');
 });
 
 
@@ -51,8 +53,6 @@ router.get('/js/config.js', function(req, res){
 // LIBS
 //
 router.get('/js/libs.js', function(req, res){
-  console.log('FILEPATH', filePath);
-
   var filePath = config.dirs.static + '/js/libs.min.js';
   // send non-minified version if development
   if(process.env.NODE_ENV === 'development')

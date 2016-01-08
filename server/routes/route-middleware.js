@@ -44,7 +44,6 @@ var middleware = {
     tenantConfig.get(hostname)
       .then(function(tenantConfig){
         req.tenantConfig = tenantConfig;
-        console.log(tenantConfig);
         next();
       })
       .catch(next);

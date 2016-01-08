@@ -1,8 +1,13 @@
+appTenant.init(window.config);
+
+
 //
 // INIT
 //
 var dependencies = [
-  'ngSanitize', 'ngAnimate', 'ngMessages', 'ui.router'
+  'ngSanitize', 'ngAnimate', 'ngMessages', 'ui.router',
+  'af.event', 'af.loader', 'af.modal', 'af.msg', 'af.storage', // af-angular-lib system
+  'af.util',  'af.filters', 'af.bsIcons'                       // af-angular-lib misc
 ];
 if(window.ie9) dependencies.push('ng.shims.placeholder');
 

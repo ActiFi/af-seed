@@ -61,24 +61,15 @@
 
   <!-- LINKS -->
   <div style="margin-top:30px;">
-    <span ng-if="::'passwordReset' | tenantEnabled">
+    {% if config.app.resetPassword %}
+    <!--<span ng-if="::'passwordReset'">-->
       <a ui-sref="help.password">Forgot your password?</a>
       <br class="visible-xs marT"/>
       <span style="color:#BBB; padding:0 8px;" class="hidden-xs"> | </span>
-    </span>
+    <!--</span>-->
+    {% endif %}
     <a href="javascript:;" ng-click="showLoginHelp = true">Need help signing in?</a>
   </div>
 
 
-</div>
-
-
-<!-- testing -->
-<div class="ng-cloak" style="margin:200px 20px 20px;">
-  <h5>dev:</h5>
-  <hr />
-  <div>view: ctx:</div>
-  <pre>ctx:{$ ctx | json $}</pre>
-  <div>config:</div>
-  <pre>config:{$ config | json $}</pre>
 </div>

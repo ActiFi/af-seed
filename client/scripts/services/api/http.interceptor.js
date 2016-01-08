@@ -11,8 +11,8 @@ ngApp.factory("httpInterceptor", function($q, $storage) {
     // REQUEST
     //
     request: function(request) {
-      if($storage.local('jwt'))
-        request.headers.authorization = $storage.local('jwt');
+      if($storage.store('jwt'))
+        request.headers.authorization = $storage.store('jwt');
       return request;
     },
 
@@ -21,22 +21,21 @@ ngApp.factory("httpInterceptor", function($q, $storage) {
     // RESPONSE 200 SUCCESS
     //
     response: function(response) {
-      // should this even run?
       if(!response.config) return response;
       var request = response.config;
       if(shouldIgnore(request)) return response;
 
-      var isSuccess = true;
-      if (response.data.status !== 'success') isSuccess = false;
+      // JSEND
+      response.data = response.data || {};
 
+      var isSuccess = (response.data.status === 'success');
       if (isSuccess) {
         response.data = response.data.data;
         return response;
       } else {
-        // jsend returns status 200, but the error status is in response data:
-        response.status = response.data.code;
+        response.status =     response.data.code || 500;
         response.statusText = response.data.name;
-        response.data = response.data.message || 'Unknown Error. Code:' + response.data.code;
+        response.data =       response.data.message || 'Unknown Error. Code:' + response.data.code;
         return interceptor.responseError(response);
       }
     },
@@ -46,13 +45,13 @@ ngApp.factory("httpInterceptor", function($q, $storage) {
     // RESPONSE ERROR
     //
     responseError: function(response) {
-      if(!response.config) return $q.reject(response);
-      var request = response.config;
-      if(shouldIgnore(request)) return $q.reject(response);
-
+      return $q.reject(response);
+      //if(!response.config) return $q.reject(response);
+      //var request = response.config;
+      //if(shouldIgnore(request)) return $q.reject(response);
       // handle it
       //apiUtil.error.handler(response);
-      return $q.reject(response);
+      //return $q.reject(response);
     }
   };
   return interceptor;

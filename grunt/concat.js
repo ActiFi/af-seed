@@ -22,6 +22,10 @@ module.exports = function gruntExport(grunt) {
         '<%= dirs.client %>/scripts/**/*.js',
         '<%= dirs.views %>/**/*.js'
       ]),
+      afLib: concatJs('af-angular-lib.js', [
+        '<%= dirs.bower %>/af-angular-lib/dist/af-angular-setup.js',
+        '<%= dirs.bower %>/af-angular-lib/dist/af-angular-lib.js'
+      ]),
       libs: concatJs('libs.js', [
         // angular
         '<%= dirs.bower %>/jquery/dist/jquery.min.js',

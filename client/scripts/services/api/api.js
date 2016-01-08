@@ -18,8 +18,6 @@ ngApp.service('api', function($http, $log) {
         })
         ['catch'](function(response){
           $log.error(response);
-          alert(response);
-          // TODO: handle error
         });
 
     },

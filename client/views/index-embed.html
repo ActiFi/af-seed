@@ -1,0 +1,11 @@
+{% extends "partials/layouts/layout-app.html" %}
+
+{% block htmlTag %}ng-app="myApp"{% endblock %}
+
+{% block app %}
+
+<div id="app" class="app-embedded ng-cloak">
+  <div ui-view></div>
+</div>
+
+{% endblock %}

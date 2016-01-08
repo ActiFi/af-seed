@@ -34,11 +34,7 @@ var config = {
   server: _.extend({}, environments[process.env.NODE_ENV], process.env),
   // exposed to public
   public:{
-    site_name:'ActiFi Auth',
-    env:process.env.NODE_ENV,
-    support:{
-      email:'support@actifi.com'
-    }
+    env:process.env.NODE_ENV
   }
 };
 
