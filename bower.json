@@ -15,6 +15,7 @@
     "mock"
   ],
   "dependencies": {
+    "af-angular-lib": "https://github.com/nawlbergs/af-angular-lib.git#develop-simple",
     "jquery":"2.1.4",
     "amplify": "1.1.2",
     "angular": "1.4.8",

@@ -2,6 +2,7 @@ var _ = require('lodash');
 var api = require('api');
 var config = require('config');
 var jwt = require('jsonwebtoken');
+//var db = require('db');
 
 var tenantConfig = require('tenantConfig');
 var bomb = require('bomb');
@@ -22,6 +23,12 @@ var middleware = {
     next();
   },
 
+  // attach db to a route
+  //db:function(req, res, next){
+  //  req.db = db;
+  //  next();
+  //},
+  
   // attach tenantConfig to req
   tenantConfig:function(req, res, next){
     req.tenantConfig = {};

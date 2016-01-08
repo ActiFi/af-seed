@@ -1,4 +1,75 @@
-Login Page!
+<div>
+
+  <div color-bar></div>
+
+  <!-- FORM -->
+  <form class="well marNo" ng-submit="submit()">
+
+    <!-- USERNAME -->
+    <div form-group="Username" form-required="true">
+      <div class="input-group">
+        <div class="input-group-addon">
+          <span fa-icon="user"></span>
+        </div>
+        <input type="text" class="form-control" ng-model="form.username" id="username"
+               autocapitalize="off" autocorrect="off"
+               placeholder="Enter Username">
+      </div>
+    </div>
+
+    <!-- PASSWORD -->
+    <div form-group="Password" form-required="true">
+      <div class="input-group">
+        <div class="input-group-addon">
+          <span fa-icon="lock"></span>
+        </div>
+        <input type="password" class="form-control" ng-model="form.password" id="password"
+               autocapitalize="off" autocorrect="off"
+               ng-keypress="checkCapsLock($event)"
+               placeholder="Enter Password">
+      </div>
+    </div>
+
+    <!-- BUTTONS -->
+    <div>
+      <button type="submit"
+              ng-disabled="!form.username || !form.password || attemptingLogin"
+              class="btn btn-lg btn-primary">
+        <span ng-show="!attemptingLogin && !error">Sign In</span>
+        <span ng-show="!attemptingLogin && error">Try Again</span>
+        <span ng-show="attemptingLogin">Looking Up Account...</span>
+      </button>
+      <!-- spinner -->
+      <span class="marT marL text-warning" ng-show="capsLockOn && !attemptingLogin">
+        <span fa-icon="exclamation-triangle"></span> Caps-Lock on?
+      </span>
+      <span class="padL" ng-show="attemptingLogin">
+        <i fa-icon="gear" class="fa-spin fa-2x" style="line-height:20px; vertical-align: middle;"></i>
+      </span>
+    </div>
+
+    <!-- HELP -->
+    <div ng-show="showLoginHelp" class="alert alert-warning marT" ng-bind-html="::'support.login' | tenantConfig"></div>
+
+  </form>
+
+  <div color-bar></div>
+
+  <!-- error -->
+  <div class="marNone alert alert-danger ng-cloak" ng-show="error">{{error}}</div>
+
+  <!-- LINKS -->
+  <div style="margin-top:30px;">
+    <span ng-if="::'passwordReset' | tenantEnabled">
+      <a ui-sref="help.password">Forgot your password?</a>
+      <br class="visible-xs marT"/>
+      <span style="color:#BBB; padding:0 8px;" class="hidden-xs"> | </span>
+    </span>
+    <a href="javascript:;" ng-click="showLoginHelp = true">Need help signing in?</a>
+  </div>
+
+
+</div>
 
 
 <!-- testing -->
