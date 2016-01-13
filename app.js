@@ -15,6 +15,8 @@ require('./server/routes')(app);
 if (!module.parent) {
   var server = app.listen(process.env.PORT, function () {
     console.info("Server Started: Port:" + server.address().port, 'ENV:' + app.settings.env);
+    // wipe / re-populate server (nice for db development)
+    //require('./server/script/db-maintenance/db-refresh.js')({enabled:false, force:false, populate:false})
   });
 }
 

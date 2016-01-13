@@ -28,7 +28,7 @@ var middleware = {
   //  req.db = db;
   //  next();
   //},
-  
+
   // attach tenantConfig to req
   tenantConfig:function(req, res, next){
     req.tenantConfig = {};

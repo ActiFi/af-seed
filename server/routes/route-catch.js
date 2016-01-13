@@ -57,7 +57,6 @@ var catcher = function(app){
 
   // ENSURE ERROR
   app.use(function(err, req, res, next) {
-    console.log('wtf')
     if (_.isError(err)) {
       next(err);
       return;

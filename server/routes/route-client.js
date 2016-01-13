@@ -21,8 +21,6 @@ router.use(express.static(config.dirs.static));
 //
 router.get('/', routeUtil.defaultRenderer('index'));
 router.get('/index.html', routeUtil.redirectTo('/'));
-router.get('/index-embed.html', routeUtil.defaultRenderer('index-embed'));
-
 router.get('/error-invalid-browser.html', routeUtil.defaultRenderer('error-invalid-browser'));
 router.get('/error.html', function(req, res, next){
   req.ctx = routeUtil.getParams(req);
@@ -45,7 +43,9 @@ router.get('/views/*', function(req, res){
 // CONFIG
 //
 router.get('/js/config.js', function(req, res){
-  res.send('window.config = ' + JSON.stringify(_.extend({}, config.public, req.tenantConfig)) + ';');
+  var js =  'window.config = ' + JSON.stringify(req.tenantConfig) + ';\n';
+  js += 'window.env = ' + JSON.stringify(config.public.env) +';\n';
+  res.send(js);
 });
 
 

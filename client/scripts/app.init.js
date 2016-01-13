@@ -18,6 +18,9 @@ var ngApp = angular.module('myApp', dependencies);
 //
 ngApp.constant('$STORAGE_CONFIG', {  persistent_prefix:'myApp'  } );
 ngApp.constant('$MODAL_CONFIG', {    genericModalPath:'views/partials/templates/generic-modal-view.html' });
+ngApp.constant('APP_CONFIG',  {
+  APP_NAME:window.config.label.moduleAuth
+});
 
 
 //
