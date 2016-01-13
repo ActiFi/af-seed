@@ -1,4 +1,6 @@
-ngApp.controller('AppCtrl', function($scope, siteTitleManager, $log) {
+ngApp.controller('AppCtrl', function($scope, siteTitleManager, APP_CONFIG, $log) {
+
+  console.log(APP_CONFIG);
 
   siteTitleManager.set();
 
@@ -7,11 +9,11 @@ ngApp.controller('AppCtrl', function($scope, siteTitleManager, $log) {
 
 
   $scope.$on('$stateChangeSuccess', function(event, toState){
-    $log.info('$stateChangeSuccess', toState)
+    //console.log('$stateChangeSuccess', toState)
   });
 
   $scope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error){
-    $log.info('$stateChangeSuccess', error)
+    //$log.error('$stateChangeError', error)
   });
 
 });
